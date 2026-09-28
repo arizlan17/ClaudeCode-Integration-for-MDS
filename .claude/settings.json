@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(p4 info)",
+      "Bash(p4 info:*)",
+      "Bash(p4 login -s)",
+      "Bash(p4 sync:*)",
+      "Bash(p4 opened:*)",
+      "Bash(p4 changes:*)",
+      "Bash(p4 files:*)",
+      "Bash(p4 describe:*)",
+      "Bash(p4 diff:*)",
+      "Bash(p4 where:*)",
+      "Bash(p4 fstat:*)",
+      "Bash(p4 filelog:*)",
+      "Bash(p4 annotate:*)",
+      "Bash(p4 have:*)",
+      "Bash(p4 status:*)",
+      "Bash(p4 clients:*)",
+      "Bash(p4 depots)"
+    ],
+    "deny": [
+      "Read(./.p4config)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)"
+    ]
+  }
+}
