@@ -1,0 +1,15 @@
+.p4config
+.env
+.env.*
+secrets/
+*.pem
+*.key
+target/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+*.class
+logs/
+.claude/settings.local.json
