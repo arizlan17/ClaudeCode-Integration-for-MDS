@@ -1,0 +1,18 @@
+# Optional. Applies to the whole Helix server, not only this workspace.
+# Review with your admin before loading:
+#   p4 typemap -i < p4-config/typemap.txt
+#
+# Java and Spring resources stay text so annotate, diff, and merge work.
+
+Typemap:
+	text //depot/....java
+	text //depot/....xml
+	text //depot/....yml
+	text //depot/....yaml
+	text //depot/....properties
+	text //depot/....sql
+	text //depot/....md
+	text //depot/....json
+	binary+l //depot/....jar
+	binary+l //depot/....war
+	binary+l //depot/....class

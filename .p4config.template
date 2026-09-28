@@ -1,0 +1,20 @@
+# Copy this file to .p4config in the workspace root.
+# .p4config stays out of the depot. Do not put P4PASSWD in it.
+# The MCP launcher reads this file. Change these three values to point
+# Claude at a company Helix server. No other MCP file needs the username.
+
+# Local proof of concept:
+P4PORT=localhost:1666
+
+# Enterprise Helix uses the company address, with ssl: when the server requires TLS:
+# P4PORT=ssl:helix.example.com:1666
+# Then, from this directory: p4 trust
+# Then: p4 login
+
+# Unicode servers also need the server's charset, often:
+# P4CHARSET=utf8
+# Leave that line out on a non-unicode server.
+
+P4USER=your.username
+P4CLIENT=your_workspace_name
+P4IGNORE=.p4ignore
