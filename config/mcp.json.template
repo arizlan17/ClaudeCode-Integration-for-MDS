@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "perforce-p4-mcp": {
+      "command": "C:\\Windows\\System32\\cmd.exe",
+      "args": ["/d", "/c", "scripts\\start-p4mcp.cmd"]
+    }
+  }
+}
