@@ -59,6 +59,8 @@ Examples: `batch: rename helloStep log line`, `p4: add Claude Code MCP config`.
 
 Never submit `target/`, `logs/`, `.p4config`, tickets, or password files. `.p4ignore` already excludes the local ones; do not force-add them.
 
+Never submit a file under `//depot/poc/main/...` or `//depot/poc/dev/...` as part of a feature. Follow `p4-sdlc`: implement on `//depot/poc/features/<feature-name>/...`, shelve, and wait for the user to review before integrating back.
+
 ## Leave the workspace usable
 
 - One pending changelist per task. Put unrelated files in a different changelist or revert them.
@@ -67,5 +69,7 @@ Never submit `target/`, `logs/`, `.p4config`, tickets, or password files. `.p4ig
 
 ## Related skills
 
+- `p4-sdlc` for every feature. It creates the branch and blocks a merge until the user reviews.
+- `understand-codebase` before editing an existing Java, Spring Boot, or Spring Batch tree.
 - `p4-resolve` when `p4 sync` leaves files that must be resolved.
 - `p4-shelve` when the work should be shelved instead of submitted.

@@ -12,4 +12,6 @@ target/
 .settings/
 *.class
 logs/
+export/
 .claude/settings.local.json
+.claude/helix-lines.local

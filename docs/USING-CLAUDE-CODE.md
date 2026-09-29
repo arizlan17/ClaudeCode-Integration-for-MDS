@@ -112,6 +112,8 @@ Use a skill, by just describing the work, when you want the normal chat to do th
 | Skill | Claude uses it when you ask to |
 | --- | --- |
 | `p4-helix` | Check out, sync, diff, or submit any file |
+| `p4-sdlc` | Start a feature branch, and block a merge to main or dev until you review |
+| `understand-codebase` | Map an existing Java, Spring Boot, or Spring Batch tree before editing it |
 | `p4-resolve` | Merge files after a sync or unshelve |
 | `p4-shelve` | Shelve work, or unshelve a changelist |
 | `java-change` | Edit a Java class or method |
@@ -137,7 +139,8 @@ You can still do the same work without naming an agent. Naming one keeps the tas
 | Agent | Use it when | What it will do |
 | --- | --- | --- |
 | `p4-reader` | You want history, blame, or the contents of a changelist | Reads Helix and leaves the files alone |
-| `p4-submitter` | You want files checked out and, if you said so, submitted | Opens the files, writes the description, submits only if you asked |
+| `codebase-reader` | You want an existing codebase explained before a change | Maps modules, jobs, config, and recent changelists. Does not edit |
+| `p4-submitter` | You want files checked out on a feature branch and, if you said so, submitted | Opens files on the feature path only. Will not submit onto main or dev |
 | `p4-resolver` | A sync or unshelve left conflicts | Merges the files and stops before submit |
 | `java-reviewer` | You want a review of a Java, Spring Boot, or Spring Batch diff | Reports problems and does not edit |
 | `spring-batch-dev` | You want a job or step implemented or changed | Checks out the files and edits the batch code |
@@ -149,6 +152,7 @@ You can still do the same work without naming an agent. Naming one keeps the tas
 | --- | --- |
 | Claude to follow the rules while you describe the task in normal chat | Just describe the task. The matching skill applies. |
 | A lookup that must not change files | `Use p4-reader.` |
+| An explanation of an existing codebase | `Use codebase-reader.` |
 | A code review that must not change files | `Use java-reviewer.` |
 | A batch change, with checkout handled for you | `Use spring-batch-dev.` |
 | A Spring Boot service change, with checkout handled for you | `Use spring-boot-dev.` |
@@ -167,10 +171,26 @@ Rules in `.claude/rules/` load when Claude works on a matching file. You do not 
 | `.claude/rules/spring-batch.md` | job and step classes, and `sample/**/*.java` |
 | `.claude/rules/config.md` | yaml and properties files |
 | `.claude/rules/tests.md` | `**/src/test/**/*.java` |
+| `.claude/rules/sdlc.md` | Java, yaml, and the sample module. Feature work stays off main and dev |
 
 `.claude/settings.json` denies reads of `.p4config`, `.env`, `secrets/`, and key or certificate files, so those contents are not sent to the Claude API. `.p4ignore` keeps the same paths out of the depot.
 
 The sample job is `sample/batch-hello` (`helloJob` / `helloStep`). A real service keeps its own module layout. Copy the Claude files into that service's client root using `docs/ADOPT-EXISTING-CODEBASE.md`.
+
+## Feature branches
+
+Helix is the only version control. A submit is the commit. There is no GitHub pull request.
+
+`main` and `dev` are protected:
+
+- `//depot/poc/main/...`
+- `//depot/poc/dev/...`
+
+Each feature is created as `//depot/poc/features/<feature-name>/...`, from `dev` when that line has files, otherwise from `main`. If the client is currently on `main` or `dev`, Claude creates the feature branch before editing. Implementation stays on that feature path.
+
+When the feature is ready, Claude shelves the changelist and stops. You review that shelf. Claude integrates to `dev` or `main` only after you approve in that message, and submits the integrate only if you also asked to submit it.
+
+For an existing module, ask `Use codebase-reader` first. That agent maps the jobs, config, and recent changelists and does not edit.
 
 ## What Claude can do in Perforce
 

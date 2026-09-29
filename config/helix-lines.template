@@ -1,0 +1,7 @@
+# Copy to .claude/helix-lines.local in each workspace.
+# That file stays on the machine. The installer writes it for you.
+# Paths have no trailing slash and no /...
+
+MAIN=//depot/your-service/main
+DEV=//depot/your-service/dev
+FEATURES=//depot/your-service/features
