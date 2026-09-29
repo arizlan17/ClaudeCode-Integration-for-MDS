@@ -13,7 +13,30 @@ Each person installs it into their own client root. That root can be any drive a
 
 ## Install
 
-Unzip this package, then run:
+Unzip this package. Double-click **Install Claude Helix.cmd**.
+
+Fill in the client folder, Helix server, user, client name, and the main, dev, and features depot paths. The user must be a standard Helix user. Then click, in order:
+
+1. **Install**
+2. **Trust server** (only needed when the server starts with `ssl:`)
+3. **Sign in** — the company browser opens. Finish Helix Auth there. This window cannot sign in by itself.
+4. **Check**
+
+The window writes `.p4config` and `.claude\helix-lines.local` only in the client folder. Those files stay on that PC.
+
+Open that same client folder in Claude Code and approve `perforce-p4-mcp`. That approval is one click inside Claude Code.
+
+When the Helix ticket expires, open **Install Claude Helix.cmd** again, choose the same folder, and click **Sign in**.
+
+## How work is done
+
+Claude reads, checks out, edits, shelves, and submits through Helix. Feature edits go under the FEATURES path, not on MAIN or DEV. Claude shelves the changelist and waits for a person to review before integrating back.
+
+Ask Claude: "Use codebase-reader. Explain this service. Do not edit anything."
+
+## Scripted install
+
+The same setup can be run without the window:
 
 ```powershell
 powershell -File scripts\install-into-workspace.ps1 `
@@ -26,27 +49,4 @@ powershell -File scripts\install-into-workspace.ps1 `
   -FeaturesPath "//depot/service/features"
 ```
 
-Use their real server, user, client, and depot paths. The user must be a standard Helix user.
-
-The installer writes `.p4config` and `.claude\helix-lines.local` only in the destination. Those files stay on that PC.
-
-## Sign in
-
-In the destination folder:
-
-```powershell
-p4 trust
-p4 login
-p4 login -s
-powershell -File scripts\check-enterprise.ps1
-```
-
-`p4 login` is the existing Helix Auth step. If SSO is on, the browser opens. Claude cannot do that login itself. It uses the ticket `p4 login` stores. When the ticket expires, run `p4 login` again.
-
-Then open that same folder in Claude Code and approve `perforce-p4-mcp`.
-
-## How work is done
-
-Claude reads, checks out, edits, shelves, and submits through Helix. Feature edits go under the FEATURES path, not on MAIN or DEV. Claude shelves the changelist and waits for a person to review before integrating back.
-
-Ask Claude: "Use codebase-reader. Explain this service. Do not edit anything."
+Then click **Trust server** and **Sign in** in the window, or run `p4 trust` and `p4 login` in the client folder.

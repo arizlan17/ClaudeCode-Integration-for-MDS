@@ -2,6 +2,8 @@
 
 Claude Code uses the same MCP server for this local proof of concept and for a company Helix server. The server address lives in `.p4config`, which stays on the machine and is not submitted.
 
+Developers who receive the connector zip double-click `Install Claude Helix.cmd` and use the setup window. See `share/HOW-TO-INSTALL.md`. The steps below are the same connection, written as commands.
+
 ## Point Claude at the company server
 
 1. Copy `.p4config.template` to `.p4config` if that file is not already in the workspace root.

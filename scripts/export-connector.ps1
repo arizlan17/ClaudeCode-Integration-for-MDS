@@ -8,6 +8,7 @@ if (Test-Path $stage) { Remove-Item -Recurse -Force $stage }
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
 
 Copy-Item (Join-Path $root "share\HOW-TO-INSTALL.md") (Join-Path $stage "HOW-TO-INSTALL.md")
+Copy-Item (Join-Path $root "Install Claude Helix.cmd") (Join-Path $stage "Install Claude Helix.cmd")
 foreach ($name in @("CLAUDE.md", ".mcp.json", ".p4ignore", ".p4config.template")) {
     Copy-Item (Join-Path $root $name) (Join-Path $stage $name)
 }
@@ -20,7 +21,7 @@ Remove-Item -Force (Join-Path $stage ".claude\settings.local.json") -ErrorAction
 
 $scripts = Join-Path $stage "scripts"
 New-Item -ItemType Directory -Force -Path $scripts | Out-Null
-foreach ($name in @("start-p4mcp.cmd", "start_p4mcp.py", "check-enterprise.ps1", "install-into-workspace.ps1")) {
+foreach ($name in @("start-p4mcp.cmd", "start_p4mcp.py", "check-enterprise.ps1", "install-into-workspace.ps1", "install-ui.ps1")) {
     Copy-Item (Join-Path $root "scripts\$name") (Join-Path $scripts $name)
 }
 
